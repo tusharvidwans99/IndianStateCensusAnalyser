@@ -17,6 +17,7 @@ namespace IndianStateCensusAnalyser.Constructor_for_different_CSV
             this.stateCode = stateCode;
             this.tin = Convert.ToInt32(tin);
             this.serialNumber = Convert.ToInt32(serialNumber);
+
         }
     }
 
