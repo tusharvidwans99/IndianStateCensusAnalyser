@@ -12,9 +12,12 @@ namespace IndianStateCensusAnalyserTest
         static string wrongIndiaStateCensusData = @"C:\Users\tusha\source\repos\IndianStateCensusAnalyser\IndianStateCensusAnalyser\CSV_Files\WrongIndiaStateCensusData.csv";
         static string indiaStateCensusDataText = @"C:\Users\tusha\source\repos\IndianStateCensusAnalyser\IndianStateCensusAnalyser\CSV_Files\IndiaStateCensusDAta.txt";
         static string delimiterIndiaStateCensusData = @"C:\Users\tusha\source\repos\IndianStateCensusAnalyser\IndianStateCensusAnalyser\CSV_Files\DelimiterIndiaStateCensusData.csv";
-
-
         static string indianStateCensusHeaders = "State,Population,AreaInSqKm,DensityPerSqKm";
+
+        //StateCode
+        static string indiaStateCode = @"C:\Users\tusha\source\repos\IndianStateCensusAnalyser\IndianStateCensusAnalyser\CSV_Files\IndiaStateCode.csv";
+        static string indianStateCodeHeaders = "SrNo,State Name,TIN,StateCode";
+        
 
 
         CensusAnalyser censusAnalyser;
@@ -107,6 +110,23 @@ namespace IndianStateCensusAnalyserTest
             var customException = Assert.ThrowsException<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, wrongIndiaStateCensusData, indianStateCensusHeaders));
             //total no of rows excluding header are 29 in indian state census data.
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_HEADER, customException.etype);
+        }
+
+
+        /// <summary>
+        /// Test Case 2.1
+        /// Getting the count of data in IndiaStateCodeData
+        /// </summary>
+
+        [TestMethod]
+        public void GivenIndianCodeDataFile_WhenReturnShouldReturnCodeCount()
+        {
+            //census Analyser Class is Called and parameters are passed like country, indian state census data which is csv file and header file.
+            //add
+            totalRecord = censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, indiaStateCode, indianStateCodeHeaders);
+            //assert
+            //total no of rows excluding header are 37 in indian state census data.
+            Assert.AreEqual(37, totalRecord.Count);
         }
 
     }
