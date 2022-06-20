@@ -17,6 +17,7 @@ namespace IndianStateCensusAnalyserTest
 
         //StateCode
         static string indiaStateCode = @"C:\Users\tusha\source\repos\IndianStateCensusAnalyser\IndianStateCensusAnalyser\CSV_Files\IndiaStateCode.csv";
+        static string indiaStateCodeText = @"C:\Users\tusha\source\repos\IndianStateCensusAnalyser\IndianStateCensusAnalyser\CSV_Files\IndiaStateCode.txt";
         static string indianStateCodeHeaders = "SrNo,State Name,TIN,StateCode";
         
 
@@ -143,6 +144,21 @@ namespace IndianStateCensusAnalyserTest
             var customException = Assert.ThrowsException<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, wrongFileIndiaStateCensusData, indianStateCensusHeaders));
             //total no of rows excluding header are 29 in indian state census data.
             Assert.AreEqual(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, customException.etype);
+        }
+
+
+        /// <summary>
+        /// checking the program for incorrect file type which do not exist
+        /// test case 2.3
+        /// </summary>
+        [TestMethod]
+        public void GivenWrongIndianCodeDataType_WhenReadedShouldReturnCustomException()
+        {
+            //census Analyser Class is Called and parameters are passed like country, indian state census data which is csv file and header file.
+            //add
+            var customException = Assert.ThrowsException<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, indiaStateCodeText, indianStateCodeHeaders));
+            //total no of rows excluding header are 36 in indian state census data.
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_FILE_TYPE, customException.etype);
         }
 
     }
