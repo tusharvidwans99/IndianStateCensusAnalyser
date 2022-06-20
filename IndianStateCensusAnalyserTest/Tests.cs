@@ -18,6 +18,7 @@ namespace IndianStateCensusAnalyserTest
         //StateCode
         static string indiaStateCode = @"C:\Users\tusha\source\repos\IndianStateCensusAnalyser\IndianStateCensusAnalyser\CSV_Files\IndiaStateCode.csv";
         static string indiaStateCodeText = @"C:\Users\tusha\source\repos\IndianStateCensusAnalyser\IndianStateCensusAnalyser\CSV_Files\IndiaStateCode.txt";
+        static string delimiterIndiaStateCode = @"C:\Users\tusha\source\repos\IndianStateCensusAnalyser\IndianStateCensusAnalyser\CSV_Files\DelimiterIndiaStateCode.csv";
         static string indianStateCodeHeaders = "SrNo,State Name,TIN,StateCode";
         
 
@@ -159,6 +160,20 @@ namespace IndianStateCensusAnalyserTest
             var customException = Assert.ThrowsException<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, indiaStateCodeText, indianStateCodeHeaders));
             //total no of rows excluding header are 36 in indian state census data.
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_FILE_TYPE, customException.etype);
+        }
+
+        /// <summary>
+        /// checking the program for incorrect delimiter is passed
+        /// test case 2.4
+        /// </summary>
+        [TestMethod]
+        public void GivenIncorrectDelimiterForCodeData_WhenReadedShouldReturnCustomException()
+        {
+            //census Analyser Class is Called and parameters are passed like country, indian state census data which is csv file and header file.
+            //add
+            var customException = Assert.ThrowsException<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, delimiterIndiaStateCode, indianStateCodeHeaders));
+            //total no of rows excluding header are 36 in indian state census data.
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_DELIMITER, customException.etype);
         }
 
     }
