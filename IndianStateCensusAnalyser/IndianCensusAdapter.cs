@@ -23,11 +23,11 @@ namespace IndianStateCensusAnalyser
                     throw new CensusAnalyserException("File contains wrong Delimiter", CensusAnalyserException.ExceptionType.INCORRECT_DELIMITER);
                 }
                 string[] column = data.Split(",");
-                if (csvFilePath.Contains("IndianStateCode.csv"))
+                if (csvFilePath.Contains("IndiaStateCode.csv"))
                 {
                     dataMap.Add(column[1], new CensusDTO(new IndianStateCode(column[0], column[1], column[2], column[3])));
                 }
-                if (csvFilePath.Contains("IndianStateCensusData.csv"))
+                if (csvFilePath.Contains("IndiaStateCensusData.csv"))
                 {
                     dataMap.Add(column[1], new CensusDTO(new IndianStateCensusData(column[0], column[1], column[2], column[3])));
                 }
