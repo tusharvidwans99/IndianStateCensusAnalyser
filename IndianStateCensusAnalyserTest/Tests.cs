@@ -19,6 +19,7 @@ namespace IndianStateCensusAnalyserTest
         static string indiaStateCode = @"C:\Users\tusha\source\repos\IndianStateCensusAnalyser\IndianStateCensusAnalyser\CSV_Files\IndiaStateCode.csv";
         static string indiaStateCodeText = @"C:\Users\tusha\source\repos\IndianStateCensusAnalyser\IndianStateCensusAnalyser\CSV_Files\IndiaStateCode.txt";
         static string delimiterIndiaStateCode = @"C:\Users\tusha\source\repos\IndianStateCensusAnalyser\IndianStateCensusAnalyser\CSV_Files\DelimiterIndiaStateCode.csv";
+        static string wrongIndiaStateCode = @"C:\Users\tusha\source\repos\IndianStateCensusAnalyser\IndianStateCensusAnalyser\CSV_Files\WrongIndiaStateCode.csv";
         static string indianStateCodeHeaders = "SrNo,State Name,TIN,StateCode";
         
 
@@ -176,5 +177,18 @@ namespace IndianStateCensusAnalyserTest
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_DELIMITER, customException.etype);
         }
 
+        /// <summary>
+        /// checking the program for incorrect header is passed
+        /// test case 2.5
+        /// </summary>
+        [TestMethod]
+        public void GivenIncorrectHeaderForCodeData_WhenReadedShouldReturnCustomException()
+        {
+            //census Analyser Class is Called and parameters are passed like country, indian state census data which is csv file and header file.
+            //add
+            var customException = Assert.ThrowsException<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, wrongIndiaStateCode, indianStateCodeHeaders));
+            //total no of rows excluding header are 36 in indian state census data.
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_HEADER, customException.etype);
+        }
     }
 }
